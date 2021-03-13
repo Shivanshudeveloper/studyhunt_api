@@ -5,6 +5,10 @@ const { v4: uuidv4 } = require('uuid');
 // Getting Module
 const University_Model = require('../models/University');
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 // TEST
 // @GET TEST
 // GET 
@@ -32,10 +36,12 @@ router.get('/getuniversitites', (req, res) => {
 router.get('/finduniversity/:name', (req, res) => {
     const { name } = req.params;
     var regexName = new RegExp(name);
+    var univName = capitalizeFirstLetter(name);
+    var regexUnivName = new RegExp(univName);
     var searchName = name.toLowerCase();
     var t = []
     res.setHeader('Content-Type', 'application/json');
-    University_Model.find({"name": regexName}).sort({date: -1})
+    University_Model.find({"name": regexUnivName}).sort({date: -1})
         .then(data => {
             if (data.length === 0) {
                 University_Model.find({"country": name}).sort({date: -1})
