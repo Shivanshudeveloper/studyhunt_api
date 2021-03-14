@@ -18,9 +18,24 @@ router.get('/test', (req, res) => {
 
 
 // Database CRUD Operations
-// @POST Request to GET the People
+// @POST Request to GET the University Name
 // GET 
 router.get('/getuniversitites', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    University_Model.find({}).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+
+
+// Database CRUD Operations
+// @POST Request to GET the University Name
+// GET 
+router.get('/getuniversititesname', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     University_Model.find({}).sort({date: -1})
         .then(data => {
